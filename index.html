@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0d12" />
+  <title>FORM — Training Tracker</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="brand" data-nav="home" aria-label="Startseite">
+        <span class="brand-mark">F</span>
+        <span class="brand-text">FORM</span>
+      </button>
+      <div class="topbar-actions">
+        <button id="themeToggle" class="icon-btn" aria-label="Theme wechseln" title="Theme wechseln">◐</button>
+        <button class="avatar" data-nav="stats" aria-label="Statistiken öffnen">MK</button>
+      </div>
+    </header>
+
+    <main id="app" class="view"></main>
+
+    <nav class="bottom-nav" aria-label="Hauptnavigation">
+      <button class="nav-item active" data-nav="home"><span>⌂</span><small>Heute</small></button>
+      <button class="nav-item" data-nav="routines"><span>▤</span><small>Pläne</small></button>
+      <button class="nav-start" id="quickStart" aria-label="Training starten"><span>＋</span></button>
+      <button class="nav-item" data-nav="exercises"><span>◫</span><small>Übungen</small></button>
+      <button class="nav-item" data-nav="stats"><span>↗</span><small>Fortschritt</small></button>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+  <div id="modalRoot"></div>
+  <script src="app.js"></script>
+</body>
+</html>

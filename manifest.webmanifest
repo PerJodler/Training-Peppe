@@ -1,0 +1,9 @@
+{
+  "name":"FORM Training Tracker",
+  "short_name":"FORM",
+  "start_url":"./index.html",
+  "display":"standalone",
+  "background_color":"#090b0f",
+  "theme_color":"#090b0f",
+  "description":"Ein schneller, fokussierter Krafttraining-Tracker."
+}
