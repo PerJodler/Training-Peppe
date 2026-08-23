@@ -1,35 +1,23 @@
-# FORM — Training Tracker (Prototyp)
+# REPLOG – Trainings-App Prototyp
 
-Ein klickbarer MVP als mobile-first Web-App.
-
-## Starten
-
-Einfach `index.html` im Browser öffnen. Alternativ lokal mit einem kleinen Server:
-
-```bash
-python3 -m http.server 8000
-```
-
-Dann `http://localhost:8000` öffnen.
+Ein mobiler Frontend-Prototyp, inspiriert von modernen Gym-Trackern, aber eigenständig aufgebaut.
 
 ## Enthalten
+- Trainingseinheiten mit eigener Farbe
+- Übungen pro Einheit mit Sätzen, Gewicht, Wiederholungen und Pausenzeit
+- Aktives Training mit Satz-Checkoff
+- Swipe links/rechts zwischen Übungen
+- Trainingsdauer + automatischer Pausentimer
+- Kalender: 1 Einheit = voller Kreis, 2 = halb/halb, 3+ = aufgeteilte Segmente
+- Rest Days mit grauer Markierung
+- Tagesdetails im Kalender
+- Verlauf aller gespeicherten Trainings
+- Übungsbibliothek und eigene Übungen
+- LocalStorage-Persistenz
+- Responsive Mobile UI
 
-- Dashboard mit Wochenmetriken
-- Trainingspläne (inkl. eigener Pläne)
-- Aktives Training mit Satz-Logging
-- Anzeige der letzten Satzwerte
-- Pausentimer
-- Eigene Übungen
-- Trainingshistorie und einfache Statistiken
-- lokale Speicherung via `localStorage`
-- Dark/Light Mode
+## Start
+`index.html` direkt im Browser öffnen. Für PWA-Verhalten besser über einen lokalen Webserver ausliefern, z.B. `python -m http.server` im Projektordner.
 
-## Sinnvolle nächste Schritte für eine echte App
-
-1. React Native / Expo oder Flutter als mobile Basis
-2. Supabase/Postgres für Login, Sync und Backups
-3. echte PR- und e1RM-Auswertung aus allen Satzdaten
-4. Satz-/Wiederholungsziele pro Übung und Plan
-5. Progressionslogik mit RIR/RPE
-6. Apple Health / Health Connect
-7. Offline-Sync, Export und Datenschutzkonzept
+## Hinweis
+Dies ist ein Frontend-Prototyp ohne Login/Cloud-Backend. Daten werden lokal im Browser gespeichert.

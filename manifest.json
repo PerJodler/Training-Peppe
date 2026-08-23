@@ -1,0 +1,9 @@
+{
+  "name":"REPLOG Training Tracker",
+  "short_name":"REPLOG",
+  "start_url":"./index.html",
+  "display":"standalone",
+  "background_color":"#070707",
+  "theme_color":"#070707",
+  "description":"Mobiler Trainings-Tracker mit Plänen, Set-Logging, Timer und Kalender."
+}
