@@ -1,23 +1,14 @@
-# REPLOG – Trainings-App Prototyp
+# SETLOG v2
 
-Ein mobiler Frontend-Prototyp, inspiriert von modernen Gym-Trackern, aber eigenständig aufgebaut.
+Änderungen:
+- Trainingsseite vereinfacht
+- Übungen-Tab entfernt; Übungsbibliothek bleibt im Training-Editor verfügbar
+- 3 Sekunden auf Training halten = Einheit komplett erledigt
+- Kalender: Trainings nachträglich hinzufügen und einzelne Trainings löschen
+- Rest Days
+- großer Pausentimer, kein sichtbarer Gesamtzeit-Timer
+- 10 wählbare Timer-Töne mit Vorschau
+- Import/Export von JSON-Backups
+- kompletter Reset mit Bestätigung
 
-## Enthalten
-- Trainingseinheiten mit eigener Farbe
-- Übungen pro Einheit mit Sätzen, Gewicht, Wiederholungen und Pausenzeit
-- Aktives Training mit Satz-Checkoff
-- Swipe links/rechts zwischen Übungen
-- Trainingsdauer + automatischer Pausentimer
-- Kalender: 1 Einheit = voller Kreis, 2 = halb/halb, 3+ = aufgeteilte Segmente
-- Rest Days mit grauer Markierung
-- Tagesdetails im Kalender
-- Verlauf aller gespeicherten Trainings
-- Übungsbibliothek und eigene Übungen
-- LocalStorage-Persistenz
-- Responsive Mobile UI
-
-## Start
-`index.html` direkt im Browser öffnen. Für PWA-Verhalten besser über einen lokalen Webserver ausliefern, z.B. `python -m http.server` im Projektordner.
-
-## Hinweis
-Dies ist ein Frontend-Prototyp ohne Login/Cloud-Backend. Daten werden lokal im Browser gespeichert.
+Die App speichert Daten lokal im Browser.
