@@ -1,14 +1,17 @@
-# SETLOG v2
+# SETLOG v3
 
-Änderungen:
-- Trainingsseite vereinfacht
-- Übungen-Tab entfernt; Übungsbibliothek bleibt im Training-Editor verfügbar
-- 3 Sekunden auf Training halten = Einheit komplett erledigt
-- Kalender: Trainings nachträglich hinzufügen und einzelne Trainings löschen
-- Rest Days
-- großer Pausentimer, kein sichtbarer Gesamtzeit-Timer
-- 10 wählbare Timer-Töne mit Vorschau
-- Import/Export von JSON-Backups
-- kompletter Reset mit Bestätigung
+## Neu
+- erledigte Trainingseinheiten auf der Trainingsseite deutlich hervorgehoben
+- Zeit pro Satz und individuelle Pausenzeit beim Erstellen/Bearbeiten einer Einheit
+- eigene Übungen direkt aus der Übungsauswahl erstellen
+- eigene Übungen werden in der lokalen Bibliothek gespeichert
+- PWA/Standalone-Konfiguration für iPhone/iPad
 
-Die App speichert Daten lokal im Browser.
+## Safari-Leiste ausblenden
+Eine normale Website darf die Safari-Bedienelemente auf iOS nicht selbst verstecken. Für die App-Darstellung ohne Safari-Leiste:
+1. Projekt über HTTPS hosten.
+2. In Safari öffnen.
+3. Teilen > Zum Home-Bildschirm.
+4. SETLOG anschließend über das Home-Bildschirm-Symbol starten.
+
+Dann startet SETLOG im Standalone-Modus ohne die untere Safari-Leiste.
