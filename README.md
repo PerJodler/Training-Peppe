@@ -1,17 +1,13 @@
-# SETLOG v3
+# SETLOG v4
 
 ## Neu
-- erledigte Trainingseinheiten auf der Trainingsseite deutlich hervorgehoben
-- Zeit pro Satz und individuelle Pausenzeit beim Erstellen/Bearbeiten einer Einheit
-- eigene Übungen direkt aus der Übungsauswahl erstellen
-- eigene Übungen werden in der lokalen Bibliothek gespeichert
-- PWA/Standalone-Konfiguration für iPhone/iPad
+- Kalender ist Startseite, Trainings zweite Seite
+- eigene Intervall-Timer-Seite mit beliebig vielen Intervallen und Endlosschleife
+- Training wird automatisch vollständig erledigt, sobald alle Sätze aller Übungen abgehakt sind
+- deutlich lautere Alarmtöne inkl. synthetischer Boxringglocke
+- dunkelblaues Farbsystem
+- Kalenderlayout für schmale iPhones korrigiert
+- PWA-Start/Offline-Fallback überarbeitet
 
-## Safari-Leiste ausblenden
-Eine normale Website darf die Safari-Bedienelemente auf iOS nicht selbst verstecken. Für die App-Darstellung ohne Safari-Leiste:
-1. Projekt über HTTPS hosten.
-2. In Safari öffnen.
-3. Teilen > Zum Home-Bildschirm.
-4. SETLOG anschließend über das Home-Bildschirm-Symbol starten.
-
-Dann startet SETLOG im Standalone-Modus ohne die untere Safari-Leiste.
+## Wichtig für iPhone / Safari
+Damit SETLOG beim Start über das Home-Screen-Symbol ohne Safari-Oberfläche läuft, muss dieser Ordner über HTTPS bereitgestellt werden. Danach die Seite in Safari öffnen und „Zum Home-Bildschirm“ wählen. Ein direkt heruntergeladenes HTML-Dokument bzw. ein ChatGPT-Sandbox-Link kann iOS beim erneuten Öffnen wieder in Safari anzeigen; das kann die Webseite selbst nicht verhindern.
