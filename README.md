@@ -1,9 +1,16 @@
-# Training Peppe v7
+# Training Peppe v8
 
-Änderungen:
-- Sätze können im laufenden Training einzeln gelöscht werden.
-- Im Trainingseditor ist die Satzanzahl mit Minus/Plus leichter reduzierbar.
-- Seiten wieder etwas höher positioniert.
-- Timeranzeige auf der Timer-Seite deutlich größer.
-- Hintergrund- und Kartenfarben wurden getauscht.
-- Alle bisherigen Funktionen und Offline-PWA-Funktionen bleiben erhalten.
+Diese Version verwendet das neue blaue T-App-Symbol als:
+
+- PWA-App-Icon
+- Apple-Touch-Icon
+- Favicon
+
+## Hinweis
+Damit das neue Symbol auf dem iPhone sichtbar wird:
+1. Alte Home-Bildschirm-Version der App ggf. löschen
+2. die neue Version / PWA öffnen
+3. in Safari auf **Teilen → Zum Home-Bildschirm** gehen
+4. App neu hinzufügen
+
+Dann erscheint das neue blaue T-Icon.
