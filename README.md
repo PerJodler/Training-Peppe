@@ -1,15 +1,20 @@
-# SETLOG v5
+# Training Peppe v6
 
-## Neu
-- Trainings im Kalender planen
-- geplante Trainings teilen den Tageskreis exakt wie absolvierte Trainings (1/2, 1/3, 1/4 usw.)
-- geplante Segmente werden abgedunkelt dargestellt
-- geplante Einheit kann am Trainingstag direkt gestartet werden
-- beim Abschluss wird der geplante Eintrag automatisch in ein echtes Trainingslog überführt
-- Training kann weiterhin nachträglich eingetragen und gelöscht werden
-- Pausentimer pro Übung ist jetzt deutlich und direkt einstellbar (−15 / Eingabe / +15)
-- Pausentimer lässt sich auch während des aktiven Trainings pro Übung ändern
-- eigene Übungen besitzen jetzt ebenfalls einen Standard-Pausentimer
+Mobile Trainings-App / PWA.
 
-## iPhone / PWA
-Für App-Start ohne Safari-Leiste über HTTPS bereitstellen, in Safari öffnen und „Zum Home-Bildschirm“ wählen.
+## Neu in v6
+- Wiederkehrende Trainingsplanung: einmalig, jede Woche oder alle 2 Wochen.
+- Seitenüberschriften zentriert und mit mehr Abstand zur iPhone-Statusleiste.
+- Motivationssatz vom Trainings- auf den Kalender-Screen verschoben.
+- Timer deutlich größer.
+- Intervalle auf der Timer-Seite sind direkt auswählbar.
+- Der Pausentimer in den Einstellungen wird jetzt auf alle vorhandenen Übungen angewendet.
+- App-Name: Training Peppe.
+- Helleres blaues Farbschema.
+- Copyright-Vermerk in Einstellungen.
+- Offline-PWA mit Service Worker und gecachten App-Dateien.
+
+## Offline verwenden
+Die Dateien müssen über HTTPS (oder localhost) bereitgestellt werden. Danach die Seite einmal online öffnen und auf dem iPhone über Safari > Teilen > Zum Home-Bildschirm installieren. Nach dem ersten vollständigen Laden kann die App offline gestartet und benutzt werden.
+
+Die Trainingsdaten werden lokal auf dem Gerät gespeichert.
