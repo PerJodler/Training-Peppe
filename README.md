@@ -1,16 +1,10 @@
-# Training Peppe v8
+# Training Peppe v9
 
-Diese Version verwendet das neue blaue T-App-Symbol als:
-
-- PWA-App-Icon
-- Apple-Touch-Icon
-- Favicon
-
-## Hinweis
-Damit das neue Symbol auf dem iPhone sichtbar wird:
-1. Alte Home-Bildschirm-Version der App ggf. löschen
-2. die neue Version / PWA öffnen
-3. in Safari auf **Teilen → Zum Home-Bildschirm** gehen
-4. App neu hinzufügen
-
-Dann erscheint das neue blaue T-Icon.
+Neu:
+- Jeder Satz einer Übung kann bereits beim Erstellen/Bearbeiten eines Trainings einzeln eingestellt werden.
+- Pro Satz werden Kilogramm, Wiederholungen und Zeit gespeichert.
+- Sätze können direkt im Trainingseditor hinzugefügt und gelöscht werden.
+- Die Pause wird weiterhin individuell pro Übung gespeichert.
+- Beim Öffnen eines vorhandenen Trainings erscheinen alle gespeicherten Satzwerte wieder.
+- Das aktive Training übernimmt exakt die im Plan gespeicherten Satzwerte.
+- Alle bisherigen Funktionen, App-Icon und Offline-PWA bleiben erhalten.

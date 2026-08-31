@@ -160,6 +160,43 @@ html,body{background:var(--bg)}
   .setdelete{width:27px;height:27px;font-size:18px}
 }
 
+
+/* Training Peppe v9 – Satzwerte direkt im Trainingseditor */
+.exercise-editor-card{padding:13px}
+.editor-set-section{margin-top:12px;padding:12px;border-radius:15px;background:var(--card2);border:1px solid var(--line)}
+.editor-set-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}
+.editor-set-title strong{display:block;font-size:15px}
+.editor-set-title span{display:block;font-size:9px;color:var(--muted);margin-top:3px;line-height:1.3}
+.editor-set-title .set-count-control{flex:0 0 auto}
+.editor-set-head,.editor-set-row{
+  display:grid;
+  grid-template-columns:38px minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 31px;
+  gap:6px;align-items:center;text-align:center
+}
+.editor-set-head{padding:0 3px 6px;color:var(--muted);font-size:9px;font-weight:900}
+.editor-set-row{padding:7px 3px;border-top:1px solid var(--line)}
+.editor-set-row input{
+  min-width:0;width:100%;height:39px;background:var(--card)!important;border:1px solid var(--line)!important;
+  color:white;border-radius:10px;padding:7px 3px!important;text-align:center;font-size:15px;font-weight:850
+}
+.editor-set-num{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#205b82;font-weight:900;font-size:13px;margin:auto}
+.editor-set-delete{width:29px;height:29px;border-radius:9px;background:#542b35;color:#ffaaa5;font-size:20px;font-weight:950;padding:0}
+.editor-add-set{width:100%;margin-top:9px;padding:11px;border-radius:11px;background:#205b82;color:white;font-size:12px;font-weight:900}
+.editor-set-section .set-count-control{display:grid;grid-template-columns:31px 42px 31px;gap:4px}
+.editor-set-section .set-count-control button{height:34px;border-radius:9px;background:#205b82;color:white;font-size:17px;font-weight:900;padding:0}
+.editor-set-section .set-count-control input{width:42px;height:34px;background:var(--card)!important;border:1px solid var(--line)!important;color:white;border-radius:9px;text-align:center;padding:3px!important;font-weight:900}
+.plan-set-summary{line-height:1.6!important}
+.plan-set-summary b{color:#d5eaff}
+@media(max-width:390px){
+  .exercise-editor-card{padding:10px}
+  .editor-set-section{padding:10px 7px}
+  .editor-set-head,.editor-set-row{grid-template-columns:32px minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 28px;gap:4px}
+  .editor-set-row input{font-size:14px;padding-left:1px!important;padding-right:1px!important}
+  .editor-set-num{width:29px;height:29px}
+  .editor-set-delete{width:27px;height:27px}
+  .editor-set-title{align-items:flex-end}
+}
+
 </style>
 </head>
 <body>
@@ -223,8 +260,9 @@ function isPlanCompleteToday(p){return S.logs.some(l=>l.plan===p.id&&l.date===to
 function consumePlanned(ds,pid,plannedId=''){let i=plannedId?S.planned.findIndex(x=>x.id===plannedId):S.planned.findIndex(x=>x.date===ds&&x.plan===pid);if(i>=0)S.planned.splice(i,1)}
 function completePlan(pid){let p=S.plans.find(x=>x.id===pid);if(!p)return;if(isPlanCompleteToday(p))return toast(p.name+' ist heute bereits erledigt');let l={id:id(),date:today(),plan:p.id,name:p.name,color:p.color,duration:0,ex:p.ex.map(e=>({id:e.id,name:e.name,rest:e.rest,sets:e.sets.map(s=>({w:s.w,r:s.r,t:s.t||0,d:1}))}))};S.logs.push(l);consumePlanned(today(),p.id);S.rest=S.rest.filter(x=>x!==today());save();render();toast(p.name+' als erledigt gespeichert')}
 function renderPlans(){document.getElementById('plans').innerHTML=S.plans.map(p=>{let l=last(p.id),done=isPlanCompleteToday(p);return `<button class="plan ${done?'completed':''}" style="--pc:${p.color}" onpointerdown="holdStart('${p.id}',this)" onpointerup="holdEnd(this)" onpointercancel="holdEnd(this)" onpointerleave="holdEnd(this)" onclick="planTap('${p.id}')"><i class="stripe" style="background:${p.color}"></i><div style="position:relative;z-index:1"><strong>${esc(p.name)}</strong><div class="meta">${esc(p.cat)} · ${p.ex.length} Übungen</div><span class="pill"><i class="dot" style="background:${done?'#fff':p.color}"></i>${done?'VOLLSTÄNDIG ERLEDIGT':(l?'zuletzt '+date(l.date):'noch nicht gemacht')}</span></div>${done?'<span class="donebadge">✓</span>':'<span class="chev">›</span>'}</button>`}).join('')}
-function planDetail(pid){let p=S.plans.find(x=>x.id===pid);document.getElementById('detailSheet').innerHTML=`<div class="handle"></div><div class="sheettop"><button onclick="closeO('detail')">‹</button><button onclick="openEditor('${p.id}')">Bearbeiten</button></div><div class="eyebrow">${esc(p.cat)}</div><h1 style="font-size:46px">${esc(p.name)}</h1><div class="underline" style="background:${p.color}"></div><div class="card">${p.ex.map(e=>`<div class="planex"><strong>${esc(e.name)}</strong><span>${e.sets.length} Sätze · ${e.sets[0]?.r||0} Wdh.${(e.sets[0]?.t||0)?' · '+e.sets[0].t+' Sek.':''} · ${e.sets[0]?.w||0} kg · Pause ${e.rest??S.settings.rest}s</span></div>`).join('')}</div><div style="display:grid;grid-template-columns:1fr auto;gap:9px;margin-top:15px"><button class="primary" style="background:${p.color}" onclick="startWorkout('${p.id}')">Training starten</button><button class="secondary" style="width:52px" onclick="openEditor('${p.id}')">✎</button></div>`;openO('detail')}
-function openEditor(pid=''){closeO('detail');document.getElementById('editId').value=pid;document.getElementById('editorTitle').textContent=pid?'Training bearbeiten':'Training erstellen';if(pid){let p=S.plans.find(x=>x.id===pid);pname.value=p.name;pcat.value=p.cat;pnotes.value=p.notes;editColor=p.color;editEx=clone(p.ex)}else{pname.value='';pcat.value='';pnotes.value='';editColor=COLORS[S.plans.length%COLORS.length];editEx=[{id:id(),name:'',rest:S.settings.rest,sets:[{w:0,r:10,t:0},{w:0,r:10,t:0},{w:0,r:10,t:0}]}]}renderColors();renderEditEx();openO('editor')}
+function planDetail(pid){let p=S.plans.find(x=>x.id===pid);document.getElementById('detailSheet').innerHTML=`<div class="handle"></div><div class="sheettop"><button onclick="closeO('detail')">‹</button><button onclick="openEditor('${p.id}')">Bearbeiten</button></div><div class="eyebrow">${esc(p.cat)}</div><h1 style="font-size:46px">${esc(p.name)}</h1><div class="underline" style="background:${p.color}"></div><div class="card">${p.ex.map(e=>`<div class="planex"><strong>${esc(e.name)}</strong><span class="plan-set-summary">${e.sets.map((s,si)=>`S${si+1}: ${s.w||0} kg × ${s.r||0}${(s.t||0)?' · '+s.t+' Sek.':''}`).join('<br>')}<br><b>Pause: ${e.rest??S.settings.rest} Sek.</b></span></div>`).join('')}</div><div style="display:grid;grid-template-columns:1fr auto;gap:9px;margin-top:15px"><button class="primary" style="background:${p.color}" onclick="startWorkout('${p.id}')">Training starten</button><button class="secondary" style="width:52px" onclick="openEditor('${p.id}')">✎</button></div>`;openO('detail')}
+function normalizeEditorExercise(e){e=e||{};e.id=e.id||id();e.name=e.name||'';e.rest=Math.max(0,Number(e.rest??S.settings.rest)||0);if(!Array.isArray(e.sets)||!e.sets.length)e.sets=[{w:0,r:10,t:0}];e.sets=e.sets.map(s=>({w:Math.max(0,Number(s?.w)||0),r:Math.max(0,Number(s?.r)||0),t:Math.max(0,Number(s?.t)||0)}));return e}
+function openEditor(pid=''){closeO('detail');document.getElementById('editId').value=pid;document.getElementById('editorTitle').textContent=pid?'Training bearbeiten':'Training erstellen';if(pid){let p=S.plans.find(x=>x.id===pid);pname.value=p.name;pcat.value=p.cat;pnotes.value=p.notes;editColor=p.color;editEx=clone(p.ex).map(normalizeEditorExercise)}else{pname.value='';pcat.value='';pnotes.value='';editColor=COLORS[S.plans.length%COLORS.length];editEx=[normalizeEditorExercise({id:id(),name:'',rest:S.settings.rest,sets:[{w:0,r:10,t:0},{w:0,r:10,t:0},{w:0,r:10,t:0}]})]}renderColors();renderEditEx();openO('editor')}
 function renderColors(){colors.innerHTML=COLORS.map(c=>`<button class="color ${c===editColor?'sel':''}" style="background:${c}" onclick="editColor='${c}';renderColors()"></button>`).join('')}
 function addEditExercise(){openExercisePicker()}
 function openExercisePicker(){pickerSearch.value='';renderPicker();openO('picker')}
@@ -232,9 +270,76 @@ function renderPicker(){let term=(pickerSearch.value||'').toLowerCase(),own=S.pl
 function chooseExercise(encoded,time=0,rest=S.settings.rest){let name=decodeURIComponent(encoded);editEx.push({id:id(),name,rest:Math.max(0,+rest||0),sets:[{w:0,r:10,t:+time||0},{w:0,r:10,t:+time||0},{w:0,r:10,t:+time||0}]});renderEditEx();closeO('picker')}
 function openCustomExercise(){customName.value='';customMeta.value='';customTime.value='0';customRest.value=String(S.settings.rest||90);openO('customExercise')}
 function saveCustomExercise(){let name=customName.value.trim(),meta=customMeta.value.trim()||'Eigene Übung',time=Math.max(0,+customTime.value||0),rest=Math.max(0,+customRest.value||0);if(!name)return toast('Name fehlt');let exists=[...LIB,...S.customExercises.map(e=>[e.name])].some(x=>String(x[0]).toLowerCase()===name.toLowerCase());if(!exists)S.customExercises.push({name,meta,time,rest});save();editEx.push({id:id(),name,rest,sets:[{w:0,r:10,t:time},{w:0,r:10,t:time},{w:0,r:10,t:time}]});renderEditEx();closeO('customExercise');closeO('picker');toast('Übung hinzugefügt')}
- function setCount(i,n){n=Math.max(1,Math.min(10,+n||1));let e=editEx[i],b=e.sets[0]||{w:0,r:10,t:0};while(e.sets.length<n)e.sets.push(clone(b));e.sets=e.sets.slice(0,n);renderEditEx()} function changeEditorSetCount(i,d){setCount(i,(editEx[i]?.sets.length||1)+d)} function setReps(i,n){editEx[i].sets.forEach(s=>s.r=Math.max(0,+n||0))} function setTime(i,n){editEx[i].sets.forEach(s=>s.t=Math.max(0,+n||0))} function setExerciseRest(i,n){editEx[i].rest=Math.max(0,+n||0);renderEditEx()} function stepExerciseRest(i,n){editEx[i].rest=Math.max(0,(+editEx[i].rest||0)+n);renderEditEx()}
-function renderEditEx(){editExercises.innerHTML=editEx.map((e,i)=>`<div class="editrow"><div class="editrowtop"><input placeholder="Übung" value="${esc(e.name)}" oninput="editEx[${i}].name=this.value"><button onclick="editEx.splice(${i},1);renderEditEx()">−</button></div><div class="editfields"><label class="minifield">Sätze<div class="set-count-control"><button type="button" onclick="changeEditorSetCount(${i},-1)">−</button><input type="number" min="1" value="${e.sets.length}" onchange="setCount(${i},this.value)"><button type="button" onclick="changeEditorSetCount(${i},1)">＋</button></div></label><label class="minifield">Wdh.<input type="number" min="0" value="${e.sets[0]?.r||0}" onchange="setReps(${i},this.value)"></label><label class="minifield">Zeit (Sek.)<input type="number" min="0" step="5" value="${e.sets[0]?.t||0}" onchange="setTime(${i},this.value)"></label></div><div class="planpause"><div><div class="label">Pausentimer dieser Übung</div><div class="meta">Startet nach einem abgehakten Satz</div></div><div class="pause-stepper"><button onclick="stepExerciseRest(${i},-15)">−</button><input type="number" min="0" step="15" value="${e.rest??S.settings.rest}" onchange="setExerciseRest(${i},this.value)" aria-label="Pausentimer in Sekunden"><button onclick="stepExerciseRest(${i},15)">＋</button></div></div></div>`).join('')}
-function savePlan(){let name=pname.value.trim(),ex=editEx.filter(e=>e.name.trim());if(!name)return toast('Name fehlt');if(!ex.length)return toast('Übung fehlt');let pid=editId.value,obj={id:pid||id(),name,cat:pcat.value.trim()||'Training',color:editColor,notes:pnotes.value.trim(),ex};if(pid)S.plans[S.plans.findIndex(p=>p.id===pid)]=obj;else S.plans.push(obj);save();closeO('editor');render();toast('Training gespeichert')}
+ function setCount(i,n){
+  n=Math.max(1,Math.min(20,+n||1));
+  let e=editEx[i]; if(!e)return;
+  let b=e.sets[e.sets.length-1]||{w:0,r:10,t:0};
+  while(e.sets.length<n)e.sets.push({w:+b.w||0,r:+b.r||0,t:+b.t||0});
+  e.sets=e.sets.slice(0,n);
+  renderEditEx()
+}
+function changeEditorSetCount(i,d){setCount(i,(editEx[i]?.sets.length||1)+d)}
+function addEditorSet(i){
+  let e=editEx[i];if(!e)return;
+  let b=e.sets[e.sets.length-1]||{w:0,r:10,t:0};
+  e.sets.push({w:+b.w||0,r:+b.r||0,t:+b.t||0});
+  renderEditEx()
+}
+function deleteEditorSet(i,si){
+  let e=editEx[i];if(!e)return;
+  if(e.sets.length<=1){toast('Mindestens ein Satz muss bleiben');return}
+  e.sets.splice(si,1);renderEditEx()
+}
+function updateEditorSet(i,si,key,value){
+  let e=editEx[i],s=e?.sets?.[si];if(!s)return;
+  s[key]=Math.max(0,Number(value)||0)
+}
+function setExerciseRest(i,n){editEx[i].rest=Math.max(0,+n||0)}
+function stepExerciseRest(i,n){editEx[i].rest=Math.max(0,(+editEx[i].rest||0)+n);renderEditEx()}
+function renderEditorSetRows(e,i){
+  return e.sets.map((s,si)=>`<div class="editor-set-row">
+    <div class="editor-set-num">${si+1}</div>
+    <input type="number" min="0" step="0.5" inputmode="decimal" value="${s.w}" aria-label="Satz ${si+1} Kilogramm" oninput="updateEditorSet(${i},${si},'w',this.value)">
+    <input type="number" min="0" step="1" inputmode="numeric" value="${s.r}" aria-label="Satz ${si+1} Wiederholungen" oninput="updateEditorSet(${i},${si},'r',this.value)">
+    <input type="number" min="0" step="5" inputmode="numeric" value="${s.t||0}" aria-label="Satz ${si+1} Zeit in Sekunden" oninput="updateEditorSet(${i},${si},'t',this.value)">
+    <button type="button" class="editor-set-delete" onclick="deleteEditorSet(${i},${si})" aria-label="Satz ${si+1} löschen">−</button>
+  </div>`).join('')
+}
+function renderEditEx(){
+  editExercises.innerHTML=editEx.map((e,i)=>`<div class="editrow exercise-editor-card">
+    <div class="editrowtop">
+      <input placeholder="Übung" value="${esc(e.name)}" oninput="editEx[${i}].name=this.value">
+      <button onclick="editEx.splice(${i},1);renderEditEx()" aria-label="Übung löschen">−</button>
+    </div>
+
+    <div class="editor-set-section">
+      <div class="editor-set-title">
+        <div><strong>Sätze</strong><span>Gewicht, Wiederholungen und Zeit für jeden Satz einzeln</span></div>
+        <div class="set-count-control">
+          <button type="button" onclick="changeEditorSetCount(${i},-1)">−</button>
+          <input type="number" min="1" max="20" value="${e.sets.length}" onchange="setCount(${i},this.value)" aria-label="Anzahl Sätze">
+          <button type="button" onclick="changeEditorSetCount(${i},1)">＋</button>
+        </div>
+      </div>
+      <div class="editor-set-head"><span>SATZ</span><span>KG</span><span>WDH.</span><span>SEK.</span><span></span></div>
+      <div class="editor-set-rows">${renderEditorSetRows(e,i)}</div>
+      <button type="button" class="editor-add-set" onclick="addEditorSet(${i})">＋ Satz hinzufügen</button>
+    </div>
+
+    <div class="planpause">
+      <div>
+        <div class="label">Pausentimer dieser Übung</div>
+        <div class="meta">Wird separat für diese Übung gespeichert</div>
+      </div>
+      <div class="pause-stepper">
+        <button type="button" onclick="stepExerciseRest(${i},-15)">−</button>
+        <input type="number" min="0" step="15" value="${e.rest??S.settings.rest}" onchange="setExerciseRest(${i},this.value)" oninput="setExerciseRest(${i},this.value)" aria-label="Pausentimer in Sekunden">
+        <button type="button" onclick="stepExerciseRest(${i},15)">＋</button>
+      </div>
+    </div>
+  </div>`).join('')
+}
+function savePlan(){let name=pname.value.trim(),ex=editEx.filter(e=>e.name.trim()).map(normalizeEditorExercise);if(!name)return toast('Name fehlt');if(!ex.length)return toast('Übung fehlt');let pid=editId.value,obj={id:pid||id(),name,cat:pcat.value.trim()||'Training',color:editColor,notes:pnotes.value.trim(),ex:clone(ex)};if(pid)S.plans[S.plans.findIndex(p=>p.id===pid)]=obj;else S.plans.push(obj);save();closeO('editor');render();toast('Training mit allen Satzwerten gespeichert')}
 function startWorkout(pid,plannedId=''){let p=S.plans.find(x=>x.id===pid);if(!p)return;closeO('detail');closeO('day');let match=plannedId?S.planned.find(x=>x.id===plannedId):S.planned.find(x=>x.date===today()&&x.plan===p.id);W={plan:p.id,name:p.name,color:p.color,start:Date.now(),plannedId:match?.id||'',date:today(),ex:p.ex.map(e=>({id:e.id,name:e.name,rest:e.rest??S.settings.rest,sets:e.sets.map(s=>({w:s.w,r:s.r,t:s.t||0,d:0}))}))};wi=0;workout.style.setProperty('--wc',p.color);workout.classList.add('open');renderSlides()}
 function lastEx(n){for(let l of [...S.logs].sort((a,b)=>b.date.localeCompare(a.date))){let e=l.ex.find(x=>x.name===n);if(e)return e}return null}
 function rows(e,ei){return e.sets.map((s,si)=>`<div class="setrow ${s.d?'done':''}"><div class="num">${si+1}</div><input type="number" step="0.5" value="${s.w}" aria-label="Gewicht" oninput="W.ex[${ei}].sets[${si}].w=+this.value||0"><input type="number" value="${s.r}" aria-label="Wiederholungen" oninput="W.ex[${ei}].sets[${si}].r=+this.value||0"><input type="number" step="5" value="${s.t||0}" aria-label="Zeit in Sekunden" oninput="W.ex[${ei}].sets[${si}].t=+this.value||0"><input class="check" type="checkbox" ${s.d?'checked':''} onchange="checkSet(${ei},${si},this.checked)"><button class="setdelete" onclick="deleteSet(${ei},${si})" aria-label="Satz ${si+1} löschen">−</button></div>`).join('')}
